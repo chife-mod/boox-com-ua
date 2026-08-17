@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>boox.com.ua — SEO-аудит</title>
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<link rel="stylesheet" href="../../shared/tokens.css">
+<link rel="stylesheet" href="../../shared/components.css">
+<link rel="stylesheet" href="../../shared/service-menu.css">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-size: var(--text-body);
+  line-height: 1.6;
+}
+
+.wrap { max-width: 880px; margin: 0 auto; padding: 0 var(--space-6) var(--space-20); }
+
+/* ── Top bar ──────────────────────────────────────────────── */
+.topbar {
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-border-light);
+  padding: var(--space-4) var(--space-6);
+  margin-bottom: var(--space-12);
+}
+.topbar__inner { max-width: 880px; margin: 0 auto; }
+.topbar img { display: block; height: 40px; width: auto; }
+
+/* ── Hero ─────────────────────────────────────────────────── */
+.hero { margin-bottom: var(--space-12); }
+.hero h1 {
+  font-size: var(--text-display);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin: var(--space-4) 0 var(--space-5);
+}
+.hero__lead { font-size: var(--text-h3); color: var(--color-mute); line-height: 1.5; }
+
+.meta {
+  display: flex; flex-wrap: wrap; gap: var(--space-6);
+  margin-top: var(--space-8); padding-top: var(--space-6);
+  border-top: 1px solid var(--color-divider);
+  font-size: var(--text-small); color: var(--color-mute);
+}
+.meta b { display: block; color: var(--color-ink); font-weight: 600; }
+
+/* ── Sections ─────────────────────────────────────────────── */
+section { margin-top: var(--space-16); }
+h2 {
+  font-size: var(--text-h2);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: var(--space-6);
+}
+h3 {
+  font-size: var(--text-h3);
+  line-height: 1.3;
+  margin: var(--space-8) 0 var(--space-4);
+}
+p { margin-bottom: var(--space-4); }
+p:last-child { margin-bottom: 0; }
+
+/* ── Island — white card ──────────────────────────────────── */
+.island {
+  background: var(--color-white);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg, 12px);
+  padding: var(--space-8);
+  margin-bottom: var(--space-6);
+}
+.island:last-child { margin-bottom: 0; }
+
+/* ── Verdict — the headline answer ────────────────────────── */
+.verdict {
+  background: var(--color-white);
+  border: 1px solid var(--color-divider);
+  border-left: 4px solid var(--color-success-fg);
+  border-radius: var(--radius-lg, 12px);
+  padding: var(--space-8);
+  margin-bottom: var(--space-6);
+}
+.verdict--warn { border-left-color: var(--color-warn-fg); }
+.verdict__label {
+  font-size: var(--text-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: var(--color-mute);
+  margin-bottom: var(--space-3);
+}
+.verdict__answer {
+  font-size: var(--text-h2);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: var(--space-4);
+}
+
+/* ── Stat row ─────────────────────────────────────────────── */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-4);
+  margin: var(--space-6) 0;
+}
+.stat {
+  background: var(--color-white);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+}
+.stat__num {
+  font-size: var(--text-h2);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  display: block;
+}
+.stat__num--bad  { color: var(--color-warn-fg); }
+.stat__num--good { color: var(--color-success-fg); }
+.stat__cap {
+  font-size: var(--text-small);
+  color: var(--color-mute);
+  margin-top: var(--space-2);
+  display: block;
+  line-height: 1.4;
+}
+
+/* ── Tables ───────────────────────────────────────────────── */
+.tbl-scroll { overflow-x: auto; margin: var(--space-5) 0; -webkit-overflow-scrolling: touch; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-small);
+  min-width: 520px;
+}
+th, td {
+  text-align: left;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border-light);
+  vertical-align: top;
+}
+th {
+  font-weight: 600;
+  color: var(--color-mute);
+  font-size: var(--text-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--color-divider);
+  white-space: nowrap;
+}
+tbody tr:last-child td { border-bottom: none; }
+td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.bad  { color: var(--color-warn-fg);    font-weight: 600; }
+.good { color: var(--color-success-fg); font-weight: 600; }
+
+/* ── Lists ────────────────────────────────────────────────── */
+ul, ol { margin: var(--space-4) 0 var(--space-4) var(--space-6); }
+li { margin-bottom: var(--space-2); }
+li:last-child { margin-bottom: 0; }
+
+.findings { list-style: none; margin-left: 0; }
+.findings li {
+  position: relative;
+  padding-left: var(--space-8);
+  margin-bottom: var(--space-4);
+}
+.findings li::before {
+  content: attr(data-n);
+  position: absolute; left: 0; top: 1px;
+  width: 22px; height: 22px;
+  border-radius: var(--radius-pill, 999px);
+  background: var(--color-accent-soft);
+  color: var(--color-accent-deep);
+  font-size: var(--text-caption);
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* ── Code ─────────────────────────────────────────────────── */
+code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background: var(--color-paper);
+  padding: 2px 5px;
+  border-radius: var(--radius-sm);
+}
+pre {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  background: var(--color-ink);
+  color: #E8ECF5;
+  padding: var(--space-5);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  margin: var(--space-4) 0;
+}
+pre code { background: none; padding: 0; color: inherit; }
+
+/* ── Phase / roadmap ──────────────────────────────────────── */
+.phase {
+  background: var(--color-white);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg, 12px);
+  padding: var(--space-6) var(--space-8);
+  margin-bottom: var(--space-4);
+  border-top: 3px solid var(--color-accent);
+}
+.phase__when {
+  font-size: var(--text-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  color: var(--color-accent-deep);
+  margin-bottom: var(--space-2);
+}
+.phase__title {
+  font-size: var(--text-h3);
+  font-weight: 700;
+  margin-bottom: var(--space-3);
+  letter-spacing: -0.01em;
+}
+.phase__goal { color: var(--color-mute); font-size: var(--text-small); margin-bottom: var(--space-4); }
+
+/* ── Note ─────────────────────────────────────────────────── */
+.note {
+  background: var(--color-paper);
+  border-left: 3px solid var(--color-divider);
+  padding: var(--space-4) var(--space-5);
+  margin: var(--space-5) 0;
+  font-size: var(--text-small);
+  color: var(--color-mute);
+}
+.note b { color: var(--color-ink); }
+
+/* ── Footer ───────────────────────────────────────────────── */
+.foot {
+  margin-top: var(--space-20);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-divider);
+  font-size: var(--text-small);
+  color: var(--color-mute);
+}
+
+@media (max-width: 640px) {
+  .hero h1 { font-size: var(--text-display-mobile); }
+  h2 { font-size: var(--text-h2-mobile); }
+  h3 { font-size: var(--text-h3-mobile); }
+  .island, .verdict, .phase { padding: var(--space-5); }
+  .verdict__answer { font-size: var(--text-h2-mobile); }
+}
+</style>
+</head>
+<body>
+
+<script>
+  window.PREVIEW_PROJECT_NAME    = "boox.com.ua";
+  window.PREVIEW_DEFAULT_VERSION = "seo";
+  window.PREVIEW_VERSIONS = [
+    { id: "launcher", label: "Дашборд",   desc: "Все материалы проекта",  path: "" },
+    { id: "offer",    label: "Оффер",     desc: "Страница для клиента",   path: "offer/" },
+    { id: "seo",      label: "SEO-аудит", desc: "Разбор сайта",           path: "research/seo-audit/" },
+    { id: "uikit",    label: "UI Kit",    desc: "Токены и компоненты",    path: "uikit/" }
+  ];
+</script>
+
+<header class="topbar">
+  <div class="topbar__inner">
+    <img src="../../assets/mod-logo-on-light.svg" alt="Most of Design">
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ── Hero ────────────────────────────────────────────── -->
+  <div class="hero">
+    <span class="eyebrow">SEO-аудит</span>
+    <h1>Что на сайте мешает продавать боксы</h1>
+    <p class="hero__lead">
+      Обошли 97 страниц собственным краулером и померили каждую. Ниже — что нашли,
+      что с этим делать и в каком порядке.
+    </p>
+    <div class="meta">
+      <div><b>17 августа 2026</b>Дата замеров</div>
+      <div><b>97 страниц</b>Обойдено</div>
+      <div><b>280 товаров</b>В каталоге</div>
+      <div><b>Снаружи</b>Без доступов в админку</div>
+    </div>
+  </div>
+
+  <!-- ── Ответ на главный вопрос ─────────────────────────── -->
+  <section>
+    <h2>Сайт надо переделывать с нуля?</h2>
+
+    <div class="verdict">
+      <div class="verdict__label">Короткий ответ</div>
+      <div class="verdict__answer">Нет. И переделывать его сейчас было бы ошибкой.</div>
+      <p>
+        Сайт сделан <b>лучше</b>, чем кажется по первому взгляду. В нём есть вещи, которых
+        у большинства украинских магазинов на OpenCart просто нет. Всё, что мы нашли, —
+        это настройки и шаблоны, а не архитектура. Такое чинится в существующем сайте.
+      </p>
+    </div>
+
+    <h3>Что уже накоплено и что было бы потеряно при переделке</h3>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>Актив</th><th>Замер</th><th>Что будет при переделке с нуля</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Товарная микроразметка с отзывами</td>
+            <td class="num good">60 из 60 карточек</td>
+            <td>Рейтинг 5,0 и живые отзывы с 2024 года собираются годами. Переносятся тяжело, часто теряются</td>
+          </tr>
+          <tr>
+            <td>Каталог</td>
+            <td class="num">280 товаров</td>
+            <td>Каждый адрес, который сменится, — потерянная позиция в Google</td>
+          </tr>
+          <tr>
+            <td>Блог</td>
+            <td class="num">24 статьи</td>
+            <td>Накопленный контент и его возраст — это то, что Google ценит и что не восстанавливается</td>
+          </tr>
+          <tr>
+            <td>Корпоративная страница</td>
+            <td class="num">7 355 знаков текста</td>
+            <td>Готовое коммерческое предложение, написанное вручную</td>
+          </tr>
+          <tr>
+            <td>hreflang, две языковые версии</td>
+            <td class="num good">корректно на 97 из 97</td>
+            <td>Настроено правильно — при переезде это ломается чаще всего</td>
+          </tr>
+          <tr>
+            <td>Уникальность заголовков</td>
+            <td class="num good">0 дублей</td>
+            <td>База чистая, переделка эту чистоту не улучшит</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="island">
+      <h3 style="margin-top:0">Три причины не трогать основание</h3>
+      <ol>
+        <li><b>Сезон через полтора месяца.</b> Переделка сайта — это месяцы работы и почти
+            гарантированная просадка позиций на время переезда. Просадка придётся ровно на октябрь.</li>
+        <li><b>Проблемы не архитектурные.</b> Ни одна находка из этого аудита не требует
+            смены движка. Пустые описания, отсутствующая отложенная загрузка, неправильный
+            заголовок на корпоративной странице — всё это правки в настройках и шаблонах.</li>
+        <li><b>Деньги несопоставимы.</b> Всё найденное закрывается примерно за 30–40 часов.
+            Переделка магазина на 280 товаров — это другой порядок сумм и других рисков.</li>
+      </ol>
+      <div class="note">
+        <b>Когда к вопросу вернуться:</b> после сезона, в январе-феврале, и только если
+        появится причина, которой сейчас нет — например, движок перестанет справляться
+        с ассортиментом или потребуется функциональность, которой в OpenCart нет.
+        Сегодня такой причины не видно.
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Что нашли ───────────────────────────────────────── -->
+  <section>
+    <h2>Что нашли: три вещи, которые стоят денег</h2>
+
+    <p>
+      Проблема не в том, что чего-то нет. Проблема в том, что сделанное
+      <b>не доведено до конца на последнем шаге</b> — там, где текст превращается
+      в позицию в выдаче и в клик.
+    </p>
+
+    <ul class="findings">
+      <li data-n="1">
+        <b>Google почти не получает описаний.</b> 16 категорий из 17 без описания для поиска.
+        41 карточка товара из 50 имеет описание, дословно повторяющее название товара.
+      </li>
+      <li data-n="2">
+        <b>Заголовки категорий — голые названия.</b> «Чай» — три символа. «Напої» — пять.
+        Ни «купити», ни города, ни доставки. Google отводит около 60 символов; используется
+        меньше трети.
+      </li>
+      <li data-n="3">
+        <b>Корпоративная страница написана хорошо и при этом почти невидима.</b>
+        Нет canonical, нет Open Graph, нет микроразметки, а главный заголовок занят
+        служебным подзаголовком «Що ми пропонуємо».
+      </li>
+    </ul>
+
+    <div class="stats">
+      <div class="stat"><span class="stat__num stat__num--bad">94%</span><span class="stat__cap">категорий без описания для поиска</span></div>
+      <div class="stat"><span class="stat__num stat__num--bad">0,1%</span><span class="stat__cap">картинок с отложенной загрузкой</span></div>
+      <div class="stat"><span class="stat__num stat__num--bad">3&nbsp;378</span><span class="stat__cap">картинок с пустым описанием</span></div>
+      <div class="stat"><span class="stat__num stat__num--good">60/60</span><span class="stat__cap">карточек с полной разметкой</span></div>
+    </div>
+  </section>
+
+  <!-- ── Детали ──────────────────────────────────────────── -->
+  <section>
+    <h2>Разбор по частям</h2>
+
+    <h3>1. Описания для поиска</h3>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>Раздел</th><th>Страниц</th><th>Без описания</th><th>Доля</th></tr></thead>
+        <tbody>
+          <tr><td>Категории</td><td class="num">17</td><td class="num bad">16</td><td class="num bad">94 %</td></tr>
+          <tr><td>Товары</td><td class="num">60</td><td class="num">10</td><td class="num">16 %</td></tr>
+          <tr><td>Блог</td><td class="num">15</td><td class="num good">0</td><td class="num good">0 %</td></tr>
+          <tr><td>Главная</td><td class="num">1</td><td class="num good">0</td><td class="num good">0 %</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>У товаров поле формально заполнено, поэтому любая проверка покажет «всё хорошо». Но внутри:</p>
+    <pre><code>[ 23] Борошно мигдалеве, 250г
+[ 22] Борошно амарантове,1кг
+[ 18] Борошно лляне, 1кг
+[ 21] Борошно кокосове, 1кг</code></pre>
+    <p>
+      Средняя длина — 33 символа при рекомендуемых 120–160. Описание дословно повторяет
+      название в 41 случае из 50. Для 280 товаров это решается шаблоном на уровне движка,
+      а не ручной работой.
+    </p>
+
+    <h3>2. Заголовки категорий</h3>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>Символов</th><th>Заголовок</th><th>Адрес</th></tr></thead>
+        <tbody>
+          <tr><td class="num bad">3</td><td>Чай</td><td><code>/chai/</code></td></tr>
+          <tr><td class="num bad">5</td><td>Напої</td><td><code>/napoi/</code></td></tr>
+          <tr><td class="num bad">8</td><td>Солодощі</td><td><code>/solodoshchi/</code></td></tr>
+          <tr><td class="num bad">9</td><td>Суперфуди</td><td><code>/superfudy-1/</code></td></tr>
+          <tr><td class="num">18</td><td>Подарункові набори</td><td><code>/podarunkovi-nabory/</code></td></tr>
+          <tr><td class="num">23</td><td>Корпоративні замовлення</td><td><code>/corporate-clients/</code></td></tr>
+          <tr><td class="num">31</td><td>Бакалія, олії, консерви, спеції</td><td><code>/bakaliia-olii-konservy-spetsii/</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>15 заголовков из 17 короче 30 символов. Дублей нет ни одного — это хорошо.</p>
+
+    <h3>3. Корпоративная страница — самая дешёвая победа</h3>
+    <p>
+      <code>/corporate-clients/</code> уже существует, стоит в меню, и внутри неё готовое
+      коммерческое предложение: «Корпоративні подарунки від BOOX», блоки «Все під ключ»
+      и «Індивідуальний підхід», призыв «Замовити консультацію». Это <b>единственная страница
+      сайта с настоящей структурой подзаголовков</b>. И при этом:
+    </p>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>Что не так</th><th>Чем это оборачивается</th></tr></thead>
+        <tbody>
+          <tr><td class="bad">Главный заголовок — «Що ми пропонуємо»</td><td>Google считает главный заголовок темой страницы. Сейчас тема звучит как служебный подзаголовок, а настоящее название размечено как обычный текст</td></tr>
+          <tr><td class="bad">Нет тегов для соцсетей и мессенджеров</td><td>Ссылка выглядит голой. Для B2B, где её пересылают внутри компании, это прямая потеря</td></tr>
+          <tr><td class="bad">Нет формы заявки</td><td>Есть призыв «Замовити консультацію» — но заявку негде оставить</td></tr>
+          <tr><td class="bad">Нет canonical и микроразметки</td><td>Страница слабее выглядит для поиска, чем заслуживает</td></tr>
+          <tr><td class="bad">Описание для поиска — 39 символов</td><td>«Корпоративні замовлення від Boox.com.ua», и всё</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Страница уже написана и уже в меню. Нужны заголовок, теги и форма — работы на несколько часов, а речь про декабрьские корпоративные заказы.</p>
+
+    <h3>4. Картинки — отложенная загрузка выключена почти везде</h3>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>Раздел</th><th>Картинок</th><th>С отложенной загрузкой</th><th>Пустое описание</th><th>WebP</th></tr></thead>
+        <tbody>
+          <tr><td>Главная</td><td class="num">118</td><td class="num">7</td><td class="num">49</td><td class="num bad">0</td></tr>
+          <tr><td>Категории</td><td class="num">1 772</td><td class="num bad">0</td><td class="num">892</td><td class="num bad">0</td></tr>
+          <tr><td>Товары</td><td class="num">4 667</td><td class="num bad">0</td><td class="num">2 239</td><td class="num bad">0</td></tr>
+          <tr><td>Блог</td><td class="num">630</td><td class="num bad">0</td><td class="num">198</td><td class="num bad">0</td></tr>
+          <tr><td><b>Итого</b></td><td class="num"><b>7 187</b></td><td class="num bad"><b>7</b></td><td class="num"><b>3 378</b></td><td class="num bad"><b>0</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Карточка товара тянет в среднем 78 изображений сразу, страница категории — до 157.
+      В сезон, когда трафик мобильный, это главный тормоз. Хорошее: размеры картинок
+      проставлены у 6 974 из 7 187 — вёрстка не «прыгает» при загрузке.
+    </p>
+
+    <h3>5. Индексация</h3>
+    <ul>
+      <li><b>Карта сайта пустая.</b> <code>/sitemap.xml</code> отдаёт ноль байт. В настройках
+          до сих пор стоит заводская заглушка из коробки движка. При 280 товарах индексация
+          держится целиком на внутренних ссылках.</li>
+      <li><b>Сайт доступен на двух адресах</b> — с <code>www</code> и без, полная копия,
+          редиректа нет. Смягчено тем, что canonical проставлен верно.</li>
+      <li><b>Страницы «показать ещё»</b> имеют корректные ссылки «вперёд-назад» — это редкость
+          и это плюс. Но canonical на них нет.</li>
+      <li><b>Ничего не кешируется:</b> на всех 97 страницах заголовок кеширования отсутствует,
+          каждый заход идёт на сервер целиком.</li>
+    </ul>
+
+    <h3>6. Подзаголовков нет почти нигде</h3>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>Раздел</th><th>Страниц с подзаголовками</th><th>Всего подзаголовков</th></tr></thead>
+        <tbody>
+          <tr><td>Главная</td><td class="num bad">0 из 1</td><td class="num">0</td></tr>
+          <tr><td>Категории</td><td class="num bad">1 из 17</td><td class="num">5</td></tr>
+          <tr><td>Товары</td><td class="num bad">1 из 60</td><td class="num">6</td></tr>
+          <tr><td>Блог</td><td class="num good">15 из 15</td><td class="num good">405</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      Страница без подзаголовков — стена текста: поисковику нечего понять о разделах,
+      человеку нечего просмотреть глазами. На карточках товара это особенно обидно —
+      там есть описания на тысячу знаков, никак не разбитые.
+    </p>
+  </section>
+
+  <!-- ── Блог ────────────────────────────────────────────── -->
+  <section>
+    <h2>Блог: писать ли и что именно</h2>
+
+    <div class="verdict verdict--warn">
+      <div class="verdict__label">Короткий ответ</div>
+      <div class="verdict__answer">Сначала достроить то, что уже написано.</div>
+      <p>
+        В блоге <b>24 статьи</b>, и они лучше, чем можно ожидать: живая структура
+        подзаголовков (405 штук на 15 разобранных статей), описания для поиска есть
+        у всех до единой. Проблема не в количестве — писать новое ради количества
+        сейчас не нужно.
+      </p>
+    </div>
+
+    <h3>Что мешает блогу приносить заказы</h3>
+    <ol>
+      <li>
+        <b>Статьи не ведут в товары.</b> Перелинковки «статья → карточка» почти нет.
+        Человек дочитал про подарки и ушёл — купить ему предложено не было.
+        А статьи прямо просятся: «Ідеальний подарунок – вже зібраний»,
+        «Як подякувати мамі без слів: ідея подарунка».
+      </li>
+      <li>
+        <b>В 14 статьях из 15 по два главных заголовка.</b> Это ошибка шаблона — второй
+        должен быть подзаголовком. Чинится один раз для всех 24 статей.
+      </li>
+      <li>
+        <b>Нет разметки статьи</b> — ни автора, ни даты для поиска.
+      </li>
+    </ol>
+
+    <h3>План по блогу</h3>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>Шаг</th><th>Что делаем</th><th>Когда</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Чиним шаблон: второй заголовок делаем подзаголовком, добавляем разметку статьи</td><td>Сентябрь, 1 час на все 24</td></tr>
+          <tr><td>2</td><td>В существующие «подарочные» статьи добавляем ссылки и блок с боксами</td><td>Сентябрь</td></tr>
+          <tr><td>3</td><td>Пишем 3–4 сезонные статьи под конкретные запросы: корпоративные подарки коллегам, что положить в бокс, подарок на Новый год</td><td>Сентябрь — начало октября, до сезона</td></tr>
+          <tr><td>4</td><td>В сезон — не пишем. В октябре-декабре силы уходят в рекламу и заказы</td><td>Октябрь–декабрь</td></tr>
+          <tr><td>5</td><td>Возвращаемся к регулярности: 2 статьи в месяц под запросы, а не «для контента»</td><td>С января</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">
+      <b>Важно про сроки:</b> статья начинает приводить людей из поиска через 2–4 месяца.
+      Всё, что напишем в сентябре, отработает к декабрю в лучшем случае, а по-настоящему —
+      к сезону 2027. Поэтому блог — это вклад в следующий год, а деньги этого октября
+      придут из рекламы и из починенных страниц.
+    </div>
+  </section>
+
+  <!-- ── План действий ───────────────────────────────────── -->
+  <section>
+    <h2>План действий по этапам</h2>
+    <p>
+      Порядок выбран по отдаче за вложенный час и по тому, что успевает сработать к сезону.
+    </p>
+
+    <div class="phase">
+      <div class="phase__when">До 1 сентября · приборы</div>
+      <div class="phase__title">Сначала видеть, потом тратить</div>
+      <p class="phase__goal">Без этого рекламные деньги в октябре снова уйдут вслепую.</p>
+      <ul>
+        <li>Доступы: админка сайта, Search Console, Google Analytics, рекламный кабинет</li>
+        <li>Настроить подсчёт покупок — чтобы было видно заказы и суммы, а не «заходы»</li>
+        <li>Сгенерировать карту сайта и прописать её в настройках</li>
+        <li>Разобрать рекламный кабинет: что осталось от прошлого подрядчика</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase__when">Сентябрь · сайт под сезон</div>
+      <div class="phase__title">Чинить то, что уже есть</div>
+      <p class="phase__goal">Ничего не создаём с нуля — доводим до конца сделанное.</p>
+      <ul>
+        <li>Включить отложенную загрузку картинок — самый большой прирост скорости</li>
+        <li>Починить корпоративную страницу: заголовок, теги, описание, форма заявки</li>
+        <li>Описания для поиска: 17 категорий вручную, 280 товаров по шаблону</li>
+        <li>Расширить текст на странице подарочных наборов, добавить подзаголовки</li>
+        <li>Починить данные о товарах и собрать каталог для товарной рекламы</li>
+        <li>Убрать дубль сайта на www, включить кеширование</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase__when">Октябрь–декабрь · сезон</div>
+      <div class="phase__title">Ведём и не ломаем</div>
+      <p class="phase__goal">В пик ничего не переделывают. Только управление.</p>
+      <ul>
+        <li>Реклама отдельно под боксы и отдельно под корпоративные подарки</li>
+        <li>Товар для рекламы выбираем по цифрам, а не наугад</li>
+        <li>Еженедельно: правим ставки, отсекаем лишнее, один отчёт на страницу</li>
+        <li>Никаких структурных правок сайта до января</li>
+      </ul>
+    </div>
+
+    <div class="phase">
+      <div class="phase__when">Январь · спокойная работа</div>
+      <div class="phase__title">Автоматизация и задел на 2027</div>
+      <p class="phase__goal">Время, когда можно трогать процессы без риска.</p>
+      <ul>
+        <li>Автоматические статусы заказа и сбор отзывов</li>
+        <li>Перевод картинок в лёгкий формат, заполнение описаний у картинок</li>
+        <li>Перелинковка блога с товарами, возврат к регулярным статьям</li>
+        <li>Собственный бренд по боксам: название, домен, торговая марка</li>
+        <li>Разбор итогов сезона: что сработало, с чем идём в 2027</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── Приоритеты ──────────────────────────────────────── -->
+  <section>
+    <h2>Все работы по отдаче за час</h2>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>#</th><th>Работа</th><th>Эффект</th><th>Часов</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>Отложенная загрузка картинок</td><td>Скорость в сезон</td><td class="num">2–3</td></tr>
+          <tr><td class="num">2</td><td>Карта сайта и её подключение</td><td>Индексация 280 товаров</td><td class="num">1–2</td></tr>
+          <tr><td class="num">3</td><td>Корпоративная страница: заголовок, теги, описание</td><td>Декабрьские заказы</td><td class="num">3–4</td></tr>
+          <tr><td class="num">4</td><td>Форма заявки на корпоративной странице</td><td>Есть куда оставить заявку</td><td class="num">2–3</td></tr>
+          <tr><td class="num">5</td><td>Описания для 17 категорий вручную</td><td>Клики из выдачи</td><td class="num">3–4</td></tr>
+          <tr><td class="num">6</td><td>Шаблон заголовков для категорий</td><td>Клики из выдачи</td><td class="num">1–2</td></tr>
+          <tr><td class="num">7</td><td>Шаблон описаний для 280 товаров</td><td>Клики из выдачи</td><td class="num">2–3</td></tr>
+          <tr><td class="num">8</td><td>Текст и подзаголовки на странице боксов</td><td>Сезонный поиск</td><td class="num">3–4</td></tr>
+          <tr><td class="num">9</td><td>Данные о товарах и каталог для рекламы</td><td>Товарная реклама</td><td class="num">4–6</td></tr>
+          <tr><td class="num">10</td><td>Шаблон статьи блога: убрать второй заголовок</td><td>Структура 24 статей</td><td class="num">1</td></tr>
+          <tr><td class="num">11</td><td>Убрать дубль сайта на www</td><td>Чистота индекса</td><td class="num">0,5</td></tr>
+          <tr><td class="num">12</td><td>Canonical на страницы «показать ещё»</td><td>Чистота индекса</td><td class="num">1–2</td></tr>
+          <tr><td class="num">13</td><td>Кеширование</td><td>Скорость на повторных заходах</td><td class="num">1–2</td></tr>
+          <tr><td class="num">14</td><td>Разметка списка товаров и организации</td><td>Расширенные сниппеты</td><td class="num">2–3</td></tr>
+          <tr><td class="num">15</td><td>Заполнить описания у 3 378 картинок</td><td>Поиск по картинкам</td><td class="num">2–3</td></tr>
+          <tr><td class="num">16</td><td>Перевод картинок в лёгкий формат</td><td>−25–35 % веса</td><td class="num">3–4</td></tr>
+          <tr><td class="num">17</td><td>Перелинковка блога с товарами</td><td>Читатель → покупатель</td><td class="num">3–5</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Пункты 1–4 стоит сделать до октября в любом случае.</p>
+  </section>
+
+  <!-- ── Границы ─────────────────────────────────────────── -->
+  <section>
+    <h2>Чего этот аудит не покрывает</h2>
+    <div class="island">
+      <p>Честные границы, чтобы не выдавать замеры за полную картину:</p>
+      <ul>
+        <li>Обойдено 97 страниц примерно из 320. По ключевым признакам совпадение
+            стопроцентное — картина системная, а не случайная.</li>
+        <li><b>Замеры только снаружи.</b> Реальные позиции, запросы, показы и скорость
+            по живым пользователям видны лишь в Search Console и аналитике — нужны доступы.</li>
+        <li><b>Не проверялось:</b> семантическое ядро и частотность запросов, выдача
+            конкурентов, ссылочный профиль, корзина и оформление заказа, поведение
+            на реальных мобильных устройствах.</li>
+        <li>Вопросы безопасности разобраны отдельно и обсуждаются напрямую.</li>
+        <li>Оценки часов предварительные — до доступа в админку. Часть пунктов может
+            оказаться быстрее, часть дольше, если модуль не поддерживает нужное.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="foot">
+    Замеры 17.08.2026 · собственный краулер, 97 страниц · Most of Design<br>
+    Полные данные в машиночитаемом виде — <a href="../03-SEO-AUDIT.md">03-SEO-AUDIT.md</a>
+  </div>
+
+</div>
+
+<script src="../../shared/service-menu.js"></script>
+</body>
+</html>
