@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>boox.com.ua — пропозиція на сезон</title>
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="stylesheet" href="../shared/tokens.css">
+<link rel="stylesheet" href="../shared/components.css">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-size: var(--text-body);
+  line-height: 1.6;
+}
+
+.wrap { max-width: 820px; margin: 0 auto; padding: 0 var(--space-6) var(--space-20); }
+
+/* ── Top bar ──────────────────────────────────────────────── */
+.topbar {
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-border-light);
+  padding: var(--space-4) var(--space-6);
+  margin-bottom: var(--space-12);
+}
+.topbar__inner { max-width: 820px; margin: 0 auto; }
+.topbar img { display: block; height: 40px; width: auto; }
+
+/* ── Hero ─────────────────────────────────────────────────── */
+.hero { margin-bottom: var(--space-12); }
+.hero h1 {
+  font-size: var(--text-display);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin: var(--space-4) 0 var(--space-5);
+}
+.hero__lead { font-size: var(--text-h3); color: var(--color-mute); line-height: 1.5; }
+
+.meta {
+  display: flex; flex-wrap: wrap; gap: var(--space-6);
+  margin-top: var(--space-8); padding-top: var(--space-6);
+  border-top: 1px solid var(--color-divider);
+  font-size: var(--text-small); color: var(--color-mute);
+}
+.meta b { display: block; color: var(--color-ink); font-weight: 600; }
+
+/* ── Section ──────────────────────────────────────────────── */
+section { margin-top: var(--space-16); }
+h2 {
+  font-size: var(--text-h2);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: var(--space-6);
+}
+h3 { font-size: var(--text-h3); margin-bottom: var(--space-3); }
+p + p { margin-top: var(--space-4); }
+.lead-p { font-size: var(--text-h3); line-height: 1.5; }
+
+/* ── Island (white card) ──────────────────────────────────── */
+.island {
+  background: var(--color-white);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-island);
+  padding: var(--space-8);
+}
+.island + .island { margin-top: var(--space-4); }
+
+/* ── Honest list ──────────────────────────────────────────── */
+.points { list-style: none; counter-reset: pt; margin-top: var(--space-6); }
+.points li {
+  counter-increment: pt;
+  position: relative;
+  padding-left: var(--space-10);
+  margin-bottom: var(--space-5);
+}
+.points li::before {
+  content: counter(pt);
+  position: absolute; left: 0; top: 2px;
+  width: 26px; height: 26px;
+  display: grid; place-items: center;
+  background: var(--color-accent-soft); color: var(--color-accent-deep);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-caption); font-weight: 700;
+}
+
+/* ── Two-column compare ───────────────────────────────────── */
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+.compare__col { padding: var(--space-6); border-radius: var(--radius-xl); }
+.compare__col--them { background: var(--color-white); border: 1px solid var(--color-border-light); }
+.compare__col--us   { background: var(--color-ink); color: var(--color-white); }
+.compare__col--us .compare__label { color: var(--color-accent-soft); }
+.compare__label {
+  font-size: var(--text-caption); text-transform: uppercase;
+  letter-spacing: 0.12em; font-weight: 600; color: var(--color-mute);
+  margin-bottom: var(--space-3);
+}
+
+/* ── Package card ─────────────────────────────────────────── */
+.pack {
+  background: var(--color-white);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-island);
+  padding: var(--space-8);
+  margin-bottom: var(--space-5);
+}
+.pack__head {
+  display: flex; align-items: flex-start; gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+.pack__num {
+  flex-shrink: 0;
+  width: 36px; height: 36px;
+  display: grid; place-items: center;
+  background: var(--color-accent); color: var(--color-white);
+  border-radius: var(--radius-pill);
+  font-weight: 700; font-size: var(--text-small);
+}
+.pack__title { font-size: var(--text-h2-mobile); letter-spacing: -0.02em; line-height: 1.2; }
+.pack__why { color: var(--color-mute); margin-top: var(--space-2); }
+
+.pack__list { list-style: none; margin: var(--space-5) 0; }
+.pack__list li {
+  position: relative;
+  padding-left: var(--space-6);
+  margin-bottom: var(--space-3);
+}
+.pack__list li::before {
+  content: ""; position: absolute; left: 0; top: 10px;
+  width: 7px; height: 7px; border-radius: var(--radius-pill);
+  background: var(--color-divider);
+}
+.pack__list b { font-weight: 600; }
+
+.pack__get {
+  background: var(--color-paper);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  padding: var(--space-4) var(--space-5);
+  margin: var(--space-5) 0;
+}
+.pack__get span {
+  display: block; font-size: var(--text-caption); font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--color-accent-deep); margin-bottom: var(--space-2);
+}
+
+.pack__price {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  gap: var(--space-3) var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border-light);
+}
+.pack__sum { font-size: var(--text-h2); font-weight: 700; letter-spacing: -0.02em; }
+.pack__terms { font-size: var(--text-small); color: var(--color-mute); }
+
+/* ── Total ────────────────────────────────────────────────── */
+.total {
+  background: var(--color-ink); color: var(--color-white);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-10) var(--space-8);
+  text-align: center;
+  margin: var(--space-8) 0;
+}
+.total__label { color: var(--color-accent-soft); font-size: var(--text-small); }
+.total__sum {
+  font-size: var(--text-display); font-weight: 700;
+  letter-spacing: -0.03em; line-height: 1.1;
+  margin: var(--space-3) 0;
+}
+.total__note { color: rgba(255,255,255,0.65); font-size: var(--text-small); }
+
+/* ── Table ────────────────────────────────────────────────── */
+.tbl-scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: var(--text-small); }
+th, td { text-align: left; padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-border-light); }
+th { font-size: var(--text-caption); text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-mute); font-weight: 600; }
+td:last-child, th:last-child { text-align: right; white-space: nowrap; font-weight: 600; }
+tr.is-total td { background: var(--color-accent-soft); font-weight: 700; border-bottom: none; }
+
+/* ── Plain list ───────────────────────────────────────────── */
+.plain { list-style: none; }
+.plain li { position: relative; padding-left: var(--space-6); margin-bottom: var(--space-3); }
+.plain li::before { content: "—"; position: absolute; left: 0; color: var(--color-divider); }
+
+/* ── Glossary ─────────────────────────────────────────────── */
+details {
+  background: var(--color-white);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5);
+  margin-bottom: var(--space-2);
+}
+summary { cursor: pointer; font-weight: 600; list-style: none; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; float: right; color: var(--color-accent); font-weight: 400; }
+details[open] summary::after { content: "–"; }
+details p { margin-top: var(--space-3); color: var(--color-mute); }
+
+/* ── Note ─────────────────────────────────────────────────── */
+.note {
+  background: var(--color-warn-bg);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+}
+.note h3 { color: var(--color-warn-fg); }
+
+footer {
+  margin-top: var(--space-20); padding-top: var(--space-6);
+  border-top: 1px solid var(--color-divider);
+  font-size: var(--text-small); color: var(--color-mute);
+}
+
+/* ── Small screens ────────────────────────────────────────── */
+@media (max-width: 680px) {
+  .hero h1 { font-size: var(--text-display-mobile); }
+  h2 { font-size: var(--text-h2-mobile); }
+  .compare { grid-template-columns: 1fr; }
+  .island, .pack { padding: var(--space-6); }
+  .total__sum { font-size: var(--text-display-mobile); }
+}
+
+@media print {
+  body { background: var(--color-white); }
+  .pack, .island { break-inside: avoid; box-shadow: none; }
+  details { break-inside: avoid; }
+  details[open] summary::after, summary::after { content: ""; }
+  details > p { display: block !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar__inner">
+    <img src="../assets/mod-logo-on-light.svg" alt="Most of Design">
+  </div>
+</div>
+
+<div class="wrap">
+
+  <header class="hero">
+    <span class="eyebrow">Пропозиція</span>
+    <h1>Сезон подарункових боксів</h1>
+    <p class="hero__lead">
+      Що ми зробимо для boox.com.ua до жовтня, за скільки і навіщо кожна робота.
+    </p>
+    <div class="meta">
+      <div><b>Кому</b> Віка, boox.com.ua</div>
+      <div><b>Від</b> Most of Design</div>
+      <div><b>Дата</b> 17 серпня 2026</div>
+      <div><b>Дійсна до</b> 15 вересня</div>
+    </div>
+  </header>
+
+  <!-- ── Честная рамка ───────────────────────────────────── -->
+  <section>
+    <h2>Спочатку чесно</h2>
+    <div class="island">
+      <p class="lead-p">
+        Ваш сезон — жовтень і грудень. Два місяці.
+        <b>Вивести сайт у топ Google за два місяці неможливо</b> — це робота на рік.
+        Хто обіцяє топ до жовтня, той просто продає.
+      </p>
+      <p style="margin-top:var(--space-6)"><b>Що справді принесе гроші цього сезону:</b></p>
+      <ol class="points">
+        <li>
+          <b>Люди, які вже й так знаходять вас у Google.</b> Їх у вас багато. Але вони
+          потрапляють у загальний магазин продуктів, а не на бокси.
+        </li>
+        <li>
+          <b>Реклама, налаштована як слід.</b> Зараз ви не бачите, що в ній працює,
+          а що з'їдає гроші.
+        </li>
+        <li>
+          <b>Товарна реклама Google</b> — де в пошуку одразу видно фото, ціну і кнопку.
+          Зараз вона вам недоступна.
+        </li>
+      </ol>
+      <p>
+        А роботу «на топ» ми закладаємо <b>на наступний рік</b>: усе, що зробимо восени,
+        відпрацює до сезону 2027.
+      </p>
+    </div>
+
+    <div class="island">
+      <h3>І ще одне, що ми побачили 17 серпня</h3>
+      <p>
+        Лічильники у вас <b>уже стоять</b> — і Google Analytics, і решта. Просто ніхто
+        не налаштував, що саме рахувати. Тому ваше «бачимо, що десь натискають,
+        а куди — не розуміємо» лагодиться за тиждень, а не за сезон.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Отличие от агентства ────────────────────────────── -->
+  <section>
+    <h2>Чим ми не схожі на SEO-агенцію</h2>
+    <div class="compare">
+      <div class="compare__col compare__col--them">
+        <div class="compare__label">Як зазвичай</div>
+        <p>
+          Агенція приносить папку з рекомендаціями. Далі їх має хтось зробити.
+          Зазвичай не робить ніхто — і папка лежить. А абонплата йде щомісяця.
+        </p>
+      </div>
+      <div class="compare__col compare__col--us">
+        <div class="compare__label">Як у нас</div>
+        <p>
+          Ми приносимо те саме — і одразу робимо. Пакет це перелік робіт, строк і ціна.
+          Немає роботи — немає рахунку.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Пакеты ──────────────────────────────────────────── -->
+  <section>
+    <h2>Пакети</h2>
+
+    <!-- 1 -->
+    <article class="pack">
+      <div class="pack__head">
+        <div class="pack__num">1</div>
+        <div>
+          <h3 class="pack__title">Бачити, звідки замовлення</h3>
+          <p class="pack__why">
+            Щоб рекламні гроші в жовтні не пішли наосліп, як минулого разу.
+          </p>
+        </div>
+      </div>
+      <ul class="pack__list">
+        <li>Перевіряємо весь сайт і складаємо список: <b>що прибрати, що додати, що лагодити першим</b></li>
+        <li>Налаштовуємо підрахунок покупок — щоб було видно не «заходи», а замовлення і суми</li>
+        <li>Розбираємо ваш рекламний кабінет: що лишилося від минулого підрядника і що з'їдало гроші</li>
+        <li>Лагодимо карту сайту — зараз Google її не бачить, файл порожній</li>
+        <li>Робимо одне посилання зі звітом, яке <b>відкривається з телефону</b></li>
+      </ul>
+      <div class="pack__get">
+        <span>Що ви отримуєте</span>
+        Заходите з телефону і бачите: стільки замовлень, звідси, кожне коштувало стільки. Все.
+      </div>
+      <div class="pack__price">
+        <div class="pack__sum">$520</div>
+        <div class="pack__terms">26 годин · 2 тижні · 1–14 вересня</div>
+      </div>
+    </article>
+
+    <!-- 2 -->
+    <article class="pack">
+      <div class="pack__head">
+        <div class="pack__num">2</div>
+        <div>
+          <h3 class="pack__title">Сайт, який продає бокси</h3>
+          <p class="pack__why">
+            Люди й так приходять до вас із Google — але потрапляють у каталог продуктів.
+          </p>
+        </div>
+      </div>
+      <ul class="pack__list">
+        <li>Окрема сторінка <b>«Подарункові бокси»</b> — сезонна вітрина</li>
+        <li>Окрема сторінка <b>«Корпоративні подарунки»</b> — під тих, хто приносить вам гроші в грудні</li>
+        <li>Робимо так, щоб у пошуку поруч із вашим посиланням було видно <b>ціну, наявність і зірочки</b></li>
+        <li>Прискорюємо сайт — зараз сторінка вантажиться повільно, а в сезон більшість буде з телефонів</li>
+        <li>Готуємо ваш товар для товарної реклами Google</li>
+        <li>Пишемо вашій дівчині зрозумілу інструкцію: як робити картку бокса, фото й опис</li>
+      </ul>
+      <div class="pack__get">
+        <span>Що ви отримуєте</span>
+        Люди з пошуку потрапляють одразу на бокси. І бачать вас у видачі краще — з ціною
+        і зірочками. За це не треба платити окремо.
+      </div>
+      <div class="pack__price">
+        <div class="pack__sum">$800</div>
+        <div class="pack__terms">40 годин · 3 тижні · 15 вересня – 5 жовтня</div>
+      </div>
+    </article>
+
+    <!-- 3 -->
+    <article class="pack">
+      <div class="pack__head">
+        <div class="pack__num">3</div>
+        <div>
+          <h3 class="pack__title">Покупці в сезон</h3>
+          <p class="pack__why">
+            Це той самий жовтень. Ви казали: не хочете вбухати бюджет за тиждень і не
+            зрозуміти, куди він пішов.
+          </p>
+        </div>
+      </div>
+      <ul class="pack__list">
+        <li>Дивимося, що люди справді шукають перед святами — і скільки таких людей</li>
+        <li>Будуємо рекламу окремо під бокси і окремо під корпоративні подарунки</li>
+        <li><b>Вибираємо товар для реклами за цифрами</b>, а не навмання — ви про це питали</li>
+        <li>Запускаємо тихенько з середини вересня, щоб до жовтня реклама вже розігрілася</li>
+        <li>Ведемо весь сезон: щотижня правимо ставки, відсікаємо зайве</li>
+        <li>Складаємо план: які статті писати і що розсилати</li>
+      </ul>
+      <div class="pack__get">
+        <span>Що ви отримуєте</span>
+        Щотижня одна сторінка: витратили стільки, замовлень стільки, замовлення коштувало
+        стільки. У січні ви знаєте, що спрацювало — наступного року не гадаєте заново.
+      </div>
+      <div class="pack__price">
+        <div class="pack__sum">$440 <span style="font-size:var(--text-body);font-weight:400;color:var(--color-mute)">+ $160/міс</span></div>
+        <div class="pack__terms">22 години запуск + 8 годин щомісяця · жовтень–грудень</div>
+      </div>
+    </article>
+
+    <div class="total">
+      <div class="total__label">Сезон разом — пакети 1, 2 і 3</div>
+      <div class="total__sum">$2 240</div>
+      <div class="total__note">
+        40% на старті · 30% після другого пакета · ведення щомісяця<br>
+        У гривні за курсом на день рахунку
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <article class="pack">
+      <div class="pack__head">
+        <div class="pack__num">4</div>
+        <div>
+          <h3 class="pack__title">Щоб не робити руками</h3>
+          <p class="pack__why">
+            Ваші слова — «прибрати людський фактор». Зараз після відправки все обривається:
+            відгук ніхто не просить.
+          </p>
+        </div>
+      </div>
+      <ul class="pack__list">
+        <li>Клієнту автоматично приходить: прийнято → зібрано → відправлено, з номером накладної</li>
+        <li><b>Через тиждень після відправки — автоматичне «як вам?»</b></li>
+        <li>Якщо людина задоволена — йде писати відгук у Google. Якщо ні — повідомлення
+            прилітає <b>вам у Telegram</b>, і ви розбираєтесь особисто, а не читаєте це публічно</li>
+        <li>Бот для дівчат: замовлення впало → призначене → зібране, без пересилання руками</li>
+        <li>Номери накладних Нової Пошти підтягуються самі</li>
+      </ul>
+      <div class="pack__get">
+        <span>Що ви отримуєте</span>
+        Відгуки накопичуються рівно і самі — Google дивиться саме на це.
+        А незадоволений клієнт потрапляє до вас, а не на сторінку магазину.
+      </div>
+      <div class="pack__price">
+        <div class="pack__sum">$540</div>
+        <div class="pack__terms">27 годин · 3 тижні · листопад або січень — радимо січень</div>
+      </div>
+    </article>
+
+    <!-- 5 -->
+    <article class="pack">
+      <div class="pack__head">
+        <div class="pack__num">5</div>
+        <div>
+          <h3 class="pack__title">Свій бренд</h3>
+          <p class="pack__why">
+            Ви казали, що хочете свій бренд по боксах і що це не терміново. Згодні —
+            це робота на січень.
+          </p>
+        </div>
+      </div>
+      <ul class="pack__list">
+        <li>Придумуємо варіанти назви</li>
+        <li>Перевіряємо, чи вільні домени</li>
+        <li>Перевіряємо по реєстру, чи не зайнята така торгова марка</li>
+        <li>Супроводжуємо подання заявки — подає юрист</li>
+        <li>Малюємо знак, кольори й оформлення упаковки</li>
+      </ul>
+      <div class="pack__get">
+        <span>Що ви отримуєте</span>
+        Назву, яку реально можна зареєструвати, з вільним доменом — перевірено,
+        а не «здається, вільно». І бокси, які виглядають як бренд.
+      </div>
+      <div class="pack__price">
+        <div class="pack__sum">$580</div>
+        <div class="pack__terms">29 годин · 4 тижні · держмито і юрист окремо</div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ── Сводка ──────────────────────────────────────────── -->
+  <section>
+    <h2>Коротко все</h2>
+    <div class="island">
+      <div class="tbl-scroll">
+        <table>
+          <thead>
+            <tr><th>Пакет</th><th>Коли</th><th>Ціна</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1 · Бачити, звідки замовлення</td><td>1–14 вересня</td><td>$520</td></tr>
+            <tr><td>2 · Сайт, який продає бокси</td><td>15 вересня – 5 жовтня</td><td>$800</td></tr>
+            <tr><td>3 · Покупці в сезон</td><td>вересень – грудень</td><td>$440 + $160×3</td></tr>
+            <tr class="is-total"><td>Сезон разом</td><td>до кінця грудня</td><td>$2 240</td></tr>
+            <tr><td>4 · Щоб не робити руками</td><td>січень</td><td>$540</td></tr>
+            <tr><td>5 · Свій бренд</td><td>січень – лютий</td><td>$580</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:var(--space-5);font-size:var(--text-small);color:var(--color-mute)">
+        Ставка $20 за годину. Години чесні — якщо робота піде швидше, заплатите менше.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Чего не делаем ──────────────────────────────────── -->
+  <section>
+    <h2>Чого ми не робимо</h2>
+    <div class="island">
+      <ul class="plain">
+        <li><b>Не купуємо посилання.</b> Вони починають працювати через півроку-рік.
+            Витратити на них гроші в серпні заради жовтня — просто викинути.</li>
+        <li><b>Не обіцяємо місця у видачі.</b> Їх ніхто не може гарантувати. Ми відповідаємо
+            за зроблену роботу і за цифри, які видно: скільки замовлень і почому.</li>
+        <li><b>Не міняємо сайт на інший.</b> Перед сезоном це самогубство.</li>
+        <li><b>Не пишемо тексти замість вашої дівчини.</b> Даємо теми, шаблони і правила —
+            пише вона. Так дешевше і живіше.</li>
+        <li><b>Не чіпаємо сайт у листопаді-грудні.</b> Усі правки до 15 жовтня.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── Отдельно ────────────────────────────────────────── -->
+  <section>
+    <h2>Що оплачується окремо</h2>
+    <div class="island">
+      <ul class="plain">
+        <li><b>Гроші на саму рекламу Google.</b> Платите Google напряму, ми лише керуємо.</li>
+        <li><b>Сервіс, який показує, що люди шукають</b> — близько $70–100 на місяць,
+            потрібен на два місяці. Без нього ми вгадуємо, а не знаємо.</li>
+        <li><b>Держмито і юрист</b> — лише якщо йдемо в торгову марку.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── От клиента ──────────────────────────────────────── -->
+  <section>
+    <h2>Що потрібно від вас, щоб почати</h2>
+    <div class="island">
+      <h3>Доступи</h3>
+      <ul class="plain">
+        <li>Google Ads і Google Analytics</li>
+        <li>адмінка сайту, домен і хостинг</li>
+        <li>хто робив вашого Telegram-бота</li>
+      </ul>
+      <h3 style="margin-top:var(--space-8)">Відповіді</h3>
+      <ul class="plain">
+        <li>скільки грошей готові на рекламу на місяць</li>
+        <li>скільки замовлень і середній чек — у сезон і поза сезоном</li>
+        <li>скільки годин на тиждень у вашої дівчини</li>
+        <li>що сталося з сайтом після реєстрації торгової марки</li>
+        <li>хто вів вам Google раніше</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ── AI ──────────────────────────────────────────────── -->
+  <section>
+    <h2>Одне питання, яке варто вирішити одразу</h2>
+    <div class="note">
+      <h3>Зараз ваш сайт закритий для ChatGPT</h3>
+      <p>
+        У налаштуваннях сайту стоїть заборона для ChatGPT та інших AI-помічників.
+        Швидше за все, ніхто це свідомо не вмикав — воно стоїть за замовчуванням
+        у хостингу.
+      </p>
+      <p>
+        Що це означає: коли людина питає в ChatGPT «що подарувати колегам на Новий рік»,
+        вашого магазину для нього не існує. Він назве конкурентів.
+      </p>
+      <p>
+        Знімається за годину, входить у пакет 2, окремо не рахуємо. Рішення за вами —
+        ми вважаємо, що вам це вигідно.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Словарик ────────────────────────────────────────── -->
+  <section>
+    <h2>Словничок</h2>
+    <p style="margin-bottom:var(--space-5);color:var(--color-mute)">
+      Якщо десь зустріли незнайоме слово — натисніть, і ось що воно означає.
+    </p>
+
+    <details>
+      <summary>Органіка</summary>
+      <p>Люди, які знайшли вас у Google самі, без реклами. Безкоштовні відвідувачі.
+         У вас їх багато — і це добре.</p>
+    </details>
+
+    <details>
+      <summary>Google Analytics</summary>
+      <p>Безкоштовна програма Google, яка показує, скільки людей було на сайті і що вони
+         робили. У вас вона стоїть, але не налаштована рахувати покупки — тому ви й не
+         бачите, звідки замовлення.</p>
+    </details>
+
+    <details>
+      <summary>Конверсія</summary>
+      <p>Коли відвідувач став покупцем. «Конверсія 2%» означає: зі 100 людей, які зайшли,
+         купили двоє.</p>
+    </details>
+
+    <details>
+      <summary>Карта сайту</summary>
+      <p>Файл зі списком усіх ваших сторінок, який ви даєте Google, щоб він нічого не
+         пропустив. У вас цей файл є, але порожній — тому частину сторінок Google
+         може просто не бачити.</p>
+    </details>
+
+    <details>
+      <summary>Товарна реклама</summary>
+      <p>Формат, де в пошуку одразу видно фото товару, ціну і назву магазину. Щоб він
+         працював, Google треба передати список ваших товарів. Зараз ви його не передаєте,
+         тому цей формат вам недоступний.</p>
+    </details>
+
+    <details>
+      <summary>Ремаркетинг</summary>
+      <p>Реклама, яка наздоганяє людину, що вже була у вас на сайті, подивилася бокс,
+         але не купила.</p>
+    </details>
+
+    <details>
+      <summary>Що люди шукають (семантика)</summary>
+      <p>Список того, що люди насправді вводять у пошук, і скільки людей вводить кожне.
+         Наприклад: шукають «подарунковий бокс» чи «подарунковий набір» — і чого більше.
+         Щоб це знати точно, потрібен платний сервіс.</p>
+    </details>
+
+    <details>
+      <summary>Посилання</summary>
+      <p>Коли інші сайти посилаються на вас. Google це враховує, але відпрацьовує довго —
+         півроку і більше. Тому цього сезону ми їх не чіпаємо.</p>
+    </details>
+  </section>
+
+  <footer>
+    Most of Design · пропозиція для boox.com.ua · 17 серпня 2026
+  </footer>
+
+</div>
+</body>
+</html>
